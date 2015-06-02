@@ -28,6 +28,8 @@ function check_numericality() {
 
 			if(!number_valid) 
 				scope.error = 'Unacceptable Mobile Number.';
+			else
+				scope.error = null;
 		}
 
 		scope.$watch('error', function(err) {
@@ -35,8 +37,11 @@ function check_numericality() {
 			if ( /Mobile Number/i.test(err) ) {
 				
 				elem.parent().addClass('has-error');
-				elem[0].focus();
 			
+			} else {
+
+				elem.parent().removeClass('has-error');
+
 			}
 		
 		});

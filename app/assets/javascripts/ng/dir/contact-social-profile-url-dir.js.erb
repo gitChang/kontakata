@@ -26,6 +26,11 @@ function check_social_profile_url($http) {
 			var param = encodeURIComponent(scope.model.social_profile_url);
 
 			$http.get(targetPath.replace('@param', param))
+			.success(function () {
+			
+				scope.error = null;
+			
+			})
 			.error(function () {
 			
 				scope.error = 'Invalid Social Profile URL.';
@@ -40,7 +45,9 @@ function check_social_profile_url($http) {
 				elem.parent().addClass('has-error');
 			
 			} else {
+
 				elem.parent().removeClass('has-error');
+			
 			}
 		
 		});

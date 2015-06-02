@@ -28,11 +28,10 @@ function check_dup_fullname($http) {
 				if (res.exists === true) { 
 
 					scope.error = 'Name already exists.';
-					elem.parent().addClass('has-error');
 				
 				} else { 
 
-					elem.parent().removeClass('has-error')
+					scope.error = null;
 				
 				}
 
@@ -46,11 +45,14 @@ function check_dup_fullname($http) {
 
 		scope.$watch('error', function(err) {
 
-			if ( /Full Name/i.test(err) ) { 
+			if ( /Name/i.test(err) ) { 
 			
 				elem.parent().addClass('has-error');
-				elem[0].focus();
 			
+			} else {
+
+				elem.parent().removeClass('has-error');
+
 			}
 		
 		});
