@@ -48,50 +48,19 @@ class ContactsController < ApplicationController
 
 
 	def check_social_link
-		hosts = ['www.facebook.com', 'twitter.com', 'goo.gl', 'bit.ly', 'ow.ly']
+		domain_allowed = ['www.facebook.com', 'twitter.com']
 
-		result = nil
-		messages = { bad: 'Bad URL.', valid: 'Valid URL.', tmr: 'TMR.' }
+		if domain_allowed.include? URI(params[:url])
+			response = Net::HTTP.get_response( URI (params[:url]) )
 
-		if !URI(params[:url]).host
-			render json: { result: messages[:bad] }.as_json
-			return
-		end
-
-		response = Net::HTTP.get_response( URI(params[:url]) )
-
-		if !hosts.include? URI(params[:url]).host
-			render json: { result: messages[:bad] }.as_json
-			return
-		end
-
-		if URI(params[:url]).path.size < 4
-			render json: { result: messages[:bad] }.as_json
-			return
-		end
-
-		if response.is_a? Net::HTTPRedirection
-			result = response['location']
-
-			if !['www.facebook.com', 'twitter.com'].include?( URI(result).host )
-				render json: { result: messages[:bad] }.as_json
-				return
+			if response.is_a? Net::HTTPSuccess
+				head 200
+			else
+				head 404
 			end
-
-			redirect = Net::HTTP.get_response(URI(result))
-			result = messages[:tmr] if redirect.is_a? Net::HTTPRedirection
-			
-			render json: { result: result }.as_json
-			return
+		else
+			head 404
 		end
-
-		if response.is_a? Net::HTTPSuccess
-			render json: { result: messages[:valid] }.as_json
-			return
-		end
-
-		# Default to 404.
-		return render json: { result: messages[:bad] }.as_json
 	end
 
 

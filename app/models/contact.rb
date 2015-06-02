@@ -42,6 +42,7 @@ class Contact < ActiveRecord::Base
 
 	private
 
+
 		def titleize_full_name
 			self.full_name = full_name.titleize
 		end	

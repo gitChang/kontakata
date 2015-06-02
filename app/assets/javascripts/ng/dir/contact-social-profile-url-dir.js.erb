@@ -26,38 +26,9 @@ function check_social_profile_url($http) {
 			var param = encodeURIComponent(scope.model.social_profile_url);
 
 			$http.get(targetPath.replace('@param', param))
-			.success(function (res) {
-
-				switch (res.result) {
-					case 'TMR.':
-
-						scope.error = 'Too much redirects URL';
-						elem.parent().addClass('has-error');
-
-						return;
-						break;
-
-					case 'Bad URL.':
-
-						scope.error = 'Bad URL.';
-						elem.parent().addClass('has-error');
-
-						return;
-						break;
-
-					default:
-
-						elem.parent().removeClass('has-error');
-					
-						if (res.result !== 'Valid URL.')
-							scope.model.social_profile_url = res.result;
-				}
-
-			})
 			.error(function () {
 			
-				scope.error = 'Internal Server Error';
-				elem.parent().addClass('has-error');
+				scope.error = 'Invalid Social Profile URL.';
 			
 			});
 		}
@@ -67,8 +38,9 @@ function check_social_profile_url($http) {
 			if ( /Social/i.test(err) ) {
 				
 				elem.parent().addClass('has-error');
-				elem[0].focus();
 			
+			} else {
+				elem.parent().removeClass('has-error');
 			}
 		
 		});
