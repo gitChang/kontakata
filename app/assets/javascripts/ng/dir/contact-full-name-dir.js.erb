@@ -1,0 +1,65 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('contactFullName', check_dup_fullname);
+
+function check_dup_fullname($http) {
+
+	function link_callback(scope, elem) {
+
+		var timer;
+
+		elem.on('input', function () {
+			if (!scope.model.full_name) return;
+
+			if (timer) clearTimeout(timer);
+			timer = setTimeout(timer_callback, 2000);
+		});
+
+		function timer_callback() {
+			var targetPath = '<%= route.check_full_name_contacts_path("@param") %>';
+
+			$http.get(targetPath.replace('@param', scope.model.full_name))
+			.success(function (res) {
+
+				if (res.exists === true) { 
+
+					scope.error = 'Name already exists.';
+					elem.parent().addClass('has-error');
+				
+				} else { 
+
+					elem.parent().removeClass('has-error')
+				
+				}
+
+			})
+			.error(function () {
+
+				scope.error = 'Internal Server Error.';
+			
+			});
+		}
+
+		scope.$watch('error', function(err) {
+
+			if ( /Full Name/i.test(err) ) { 
+			
+				elem.parent().addClass('has-error');
+				elem[0].focus();
+			
+			}
+		
+		});
+
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+
+}

@@ -1,0 +1,51 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('contactMobileNumber', check_numericality);
+
+function check_numericality() {
+
+	function link_callback(scope, elem) {
+
+		var timer;
+
+
+		elem.on('input', function () {
+
+			if (!scope.model.mobile_number) return;
+			if (timer) clearTimeout(timer);
+			
+			timer = setTimeout(callback);
+
+		});
+
+		function callback() {
+
+			var number_valid = /^\d+$/.test(scope.model.mobile_number);
+
+			if(!number_valid) 
+				scope.error = 'Unacceptable Mobile Number.';
+		}
+
+		scope.$watch('error', function(err) {
+
+			if ( /Mobile Number/i.test(err) ) {
+				
+				elem.parent().addClass('has-error');
+				elem[0].focus();
+			
+			}
+		
+		});
+
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+
+}

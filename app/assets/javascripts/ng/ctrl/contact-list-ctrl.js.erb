@@ -1,0 +1,22 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.controller('ContactListCtrl', 
+
+	function ($rootScope, $scope, $http) {
+
+		$http.get('<%= route.all_contacts_path %>')
+		.success(function (res) {
+
+			$rootScope.contacts = res;
+		
+		})
+		.error(function () {
+
+			alert('Failed to get all contacts.');
+		
+		});
+	});

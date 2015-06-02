@@ -1,0 +1,44 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('contactForm', form_submit);
+
+function form_submit($rootScope, $http) {
+
+	function link_callback(scope, elem) {
+
+		elem.on('submit', function () {
+
+			scope.is_saving = true;
+
+			$http.post('<%= route.contacts_path %>', scope.model)
+			.success(function (res) {
+		
+				scope.reset_contact_form();
+				scope.is_saving = false;
+
+				$rootScope.contacts.unshift(res);
+
+				angular.element('.toggler').click();
+
+			})
+			.error(function (res) {
+
+				scope.error = res.error;
+				scope.is_saving = false;
+
+				console.log('err: ', scope.error);
+
+			});
+
+		});
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+}

@@ -1,0 +1,46 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('select', select_picture);
+
+function select_picture() {
+
+	var file_input = document.getElementById('fileInput');
+	var	file;
+	var	photo = document.getElementsByClassName('select')[0];
+
+	function link_callback(scope, elem) {
+
+		elem.attr('src', scope.img_placehold);
+
+		elem.on('click', function() { file_input.click(); });
+
+		file_input.addEventListener('change', function () {
+			
+			var reader = new FileReader();
+
+			file = this.files[0];
+
+			reader.onload = function () {
+				
+				scope.model.image_data = reader.result;
+				scope.model.file_name = file.name;
+				
+				photo.setAttribute('src', reader.result);
+			
+			};
+
+			reader.readAsDataURL(file);
+
+		});
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+
+}

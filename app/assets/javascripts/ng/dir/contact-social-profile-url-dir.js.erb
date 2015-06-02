@@ -1,0 +1,82 @@
+<% route = Rails.application.routes.url_helpers %>
+
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('contactSocialProfileUrl', check_social_profile_url);
+
+function check_social_profile_url($http) {
+
+	function link_callback(scope, elem) {
+
+		var timer;
+
+		elem.on('input', function () {
+
+			if (!scope.model.social_profile_url) return;
+			if (timer) clearTimeout(timer);
+
+			timer = setTimeout(callback, 2000);
+
+		});
+
+		function callback() {
+			var targetPath = '<%= route.check_social_link_contacts_path("@param") %>';
+			var param = encodeURIComponent(scope.model.social_profile_url);
+
+			$http.get(targetPath.replace('@param', param))
+			.success(function (res) {
+
+				switch (res.result) {
+					case 'TMR.':
+
+						scope.error = 'Too much redirects URL';
+						elem.parent().addClass('has-error');
+
+						return;
+						break;
+
+					case 'Bad URL.':
+
+						scope.error = 'Bad URL.';
+						elem.parent().addClass('has-error');
+
+						return;
+						break;
+
+					default:
+
+						elem.parent().removeClass('has-error');
+					
+						if (res.result !== 'Valid URL.')
+							scope.model.social_profile_url = res.result;
+				}
+
+			})
+			.error(function () {
+			
+				scope.error = 'Internal Server Error';
+				elem.parent().addClass('has-error');
+			
+			});
+		}
+
+		scope.$watch('error', function(err) {
+
+			if ( /Social/i.test(err) ) {
+				
+				elem.parent().addClass('has-error');
+				elem[0].focus();
+			
+			}
+		
+		});
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+
+}

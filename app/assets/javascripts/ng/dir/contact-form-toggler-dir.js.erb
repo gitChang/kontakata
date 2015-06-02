@@ -1,0 +1,28 @@
+'use strict';
+
+angular
+	.module('kontakata')
+	.directive('toggler', toggle_form);
+
+function toggle_form() {
+
+	function link_callback(scope, elem) {
+		
+		elem.on('click', function () {
+
+			// show or hide contact form.
+			angular.element('.ninja').toggleClass('shown');
+			
+			// chevron icon is pointing down when 
+			// contact form is hidden. 
+			// hence, pointing up when shown.
+			elem.toggleClass('fa-rotate-180');
+	
+		});
+	}
+
+	return {
+		restrict: 'C',
+		link: link_callback
+	};
+}

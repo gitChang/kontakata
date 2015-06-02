@@ -1,0 +1,50 @@
+.container-fluid
+	
+	.col-md-3.ninja ng-controller="ContactAddCtrl"
+		form.contact-form
+
+			fieldset.contact-fields ng-disabled="is_saving"
+
+				.form-group.text-center
+					img.img-circle.select src=""
+					input id="fileInput" type="file" accept="image/jpeg, image/png"
+				
+				.form-group
+					input.form-control.contact-full-name ng-model="model.full_name" type="text" placeholder="Complete Name"
+				
+				.form-group
+					input.form-control.contact-social-profile-url ng-model="model.social_profile_url" type="text" placeholder="Facebook / Twitter Profile"
+
+				.form-group
+					input.form-control.contact-mobile-number ng-model="model.mobile_number" type="text" placeholder="0928-Mobile-Number"
+				
+				.form-group
+					button.btn.btn-success.btn-block type="submit"
+
+			.form-group.notification
+				p
+
+			.text-center
+				i.toggler.fa.fa-chevron-up.fa-rotate-180.fa-2x
+
+	.row style="margin-top:30px;"
+		.col-md-5.col-md-offset-4 ng-controller="ContactListCtrl"
+
+			.panel.panel-default.custom.animated.fadeInDown ng-repeat="contact in contacts"
+				.panel-body
+					
+					.row
+
+						.col-md-4.text-center
+							img.img-circle.contact-picture src="/photos/{{contact.file_name}}"
+						
+						.col-md-8
+							p.fullname ng-bind="contact.full_name"
+							table
+								tr 
+									td.ent Social Profile &nbsp;
+									td 
+										a href="{{contact.social_profile_url}}" target="_blank" ng-bind="contact.social_profile_url | shorti"
+								tr 
+									td.ent Mobile Number &nbsp;
+									td ng-bind="contact.mobile_number"
