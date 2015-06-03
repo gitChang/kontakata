@@ -6,6 +6,7 @@ class Contact < ActiveRecord::Base
 	NUMERIC_REGEX = /\A[0-9.]+\z/
 
 
+	before_validation :verfify_social_profile_url
 	before_save :titleize_full_name
 
 	
@@ -37,45 +38,29 @@ class Contact < ActiveRecord::Base
 	end
 
 
-	def self.verify_social_profile_url(url)
-		hosts = ['www.facebook.com', 'twitter.com', 'goo.gl', 'bit.ly', 'ow.ly']
-		messages = { bad: 'Bad URL.', valid: 'Valid URL.', tmr: 'TMR.' }
+	def self.verify_url(url)
+		domain_allowed = ['www.facebook.com', 'twitter.com']
 
-		if !(url =~ URI::regexp)
-			return { valid: false, result: messages[:bad] }
-		end
+		return false if !domain_allowed.include?(URI(url).host)
 
-		response = Net::HTTP.get_response( URI(url) )
-
-		if !hosts.include? URI(url).host
-			return { valid: false, result: messages[:bad] }
-		end
-
-		if response.is_a? Net::HTTPRedirection
-			location = response['location']
-
-			if !("#{hosts[0]}#{hosts[1]}").split('').include? URI(location).host
-				return { valid: false, result: messages[:bad] }
-			end
-
-			redirect = Net::HTTP.get_response(URI(location))
-
-			return { valid: false, result: messages[:tmr] } if redirect.is_a? Net::HTTPRedirection
-			
-			return { valid: true, result: location }
-		end
+		response = Net::HTTP.get_response(URI(url))
 
 		if response.is_a? Net::HTTPSuccess
-			render json: { valid: true, result: messages[:valid] }
-			return
+			return true
+		else
+			return false
 		end
-
-		# Default to 400.
-		return render json: { valid: false, result: messages[:bad] }
 	end
 
 
 	private
+
+
+		def verfify_social_profile_url
+			if !Contact.verify_url(social_profile_url)
+				errors.add(:social_profile_url, 'Invalid Social Profile URL.')
+			end
+		end
 
 
 		def titleize_full_name

@@ -1,5 +1,3 @@
-require 'net/http'
-require 'uri'
 require 'base64'
 
 class ContactsController < ApplicationController
@@ -48,13 +46,9 @@ class ContactsController < ApplicationController
 
 
 	def check_social_link
-		domain_allowed = ['www.facebook.com', 'twitter.com']
+		url_valid = Contact.verify_url(params[:url])
 
-		head 404 if !domain_allowed.include?( URI(params[:url]).host )
-
-		response = Net::HTTP.get_response( URI(params[:url]) )
-
-		if response.is_a? Net::HTTPSuccess
+		if url_valid
 			head 200
 		else
 			head 404
