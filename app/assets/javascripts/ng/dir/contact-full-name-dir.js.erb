@@ -13,10 +13,13 @@ function check_dup_fullname($http) {
 		var timer;
 
 		elem.on('input', function () {
+			
 			if (!scope.model.full_name) return;
 
 			if (timer) clearTimeout(timer);
-			timer = setTimeout(timer_callback, 2000);
+			
+			timer = setTimeout(timer_callback, 1000);
+		
 		});
 
 		function timer_callback() {

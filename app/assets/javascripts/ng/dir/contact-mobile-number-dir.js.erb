@@ -16,6 +16,7 @@ function check_numericality() {
 		elem.on('input', function () {
 
 			if (!scope.model.mobile_number) return;
+			
 			if (timer) clearTimeout(timer);
 			
 			timer = setTimeout(callback);
@@ -27,22 +28,25 @@ function check_numericality() {
 			var number_valid = /^\d+$/.test(scope.model.mobile_number);
 
 			if(!number_valid) 
+
 				scope.error = 'Unacceptable Mobile Number.';
+			
 			else
+				
 				scope.error = null;
+		
 		}
 
 		scope.$watch('error', function(err) {
 
-			if ( /Mobile Number/i.test(err) ) {
+			if ( /Mobile Number/i.test(err) ) 
 				
 				elem.parent().addClass('has-error');
 			
-			} else {
+			else 
 
 				elem.parent().removeClass('has-error');
 
-			}
 		
 		});
 

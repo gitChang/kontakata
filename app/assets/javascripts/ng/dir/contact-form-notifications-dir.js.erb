@@ -6,20 +6,23 @@ function notification_build() {
 
 	function link_callback(scope, elem) {
 
-		var icons = {
-			spin: '<i class="fa fa-spinner fa-pulse"></i>',
-			warn: '<i class="fa fa-hand-o-right"></i>'
-		};
+		var icon_warn = '<i class="fa fa-hand-o-right"></i>';
 
 		// watch for error value and display it.
 		scope.$watch('error', function (err) {
 			
 			if (err) {
+
 				elem.addClass('text-hey');
-				elem.html(icons.warn + ' ' + err);
+			
+				elem.html(icon_warn + ' ' + err);
+			
 			} else {
+			
 				elem.removeClass('text-hey');
+			
 				elem.empty();
+			
 			}
 
 		});

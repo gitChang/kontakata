@@ -36,15 +36,16 @@
 					.row
 
 						.col-md-4.text-center
-							img.img-circle.contact-picture src="/photos/{{contact.file_name}}"
+							img.img-circle.contact-picture ng-src="/photos/{{contact.file_name}}"
 						
 						.col-md-8
 							p.fullname ng-bind="contact.full_name"
+							
 							table
 								tr 
 									td.ent Social Profile &nbsp;
 									td 
 										a href="{{contact.social_profile_url}}" target="_blank" ng-bind="contact.social_profile_url | shorti"
 								tr 
-									td.ent Mobile Number &nbsp;
+									td.ent Mobile No. &nbsp;
 									td ng-bind="contact.mobile_number"

@@ -27,6 +27,7 @@ function select_picture() {
 			reader.onload = function () {
 				
 				scope.model.image_data = reader.result;
+				
 				scope.model.file_name = file.name;
 				
 				photo.setAttribute('src', reader.result);

@@ -15,9 +15,10 @@ function check_social_profile_url($http) {
 		elem.on('input', function () {
 
 			if (!scope.model.social_profile_url) return;
+			
 			if (timer) clearTimeout(timer);
 
-			timer = setTimeout(callback, 2000);
+			timer = setTimeout(callback, 1000);
 
 		});
 
@@ -40,15 +41,14 @@ function check_social_profile_url($http) {
 
 		scope.$watch('error', function(err) {
 
-			if ( /Social/i.test(err) ) {
+			if ( /Social/i.test(err) ) 
 				
 				elem.parent().addClass('has-error');
 			
-			} else {
+			else 
 
 				elem.parent().removeClass('has-error');
 			
-			}
 		
 		});
 	}

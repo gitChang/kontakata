@@ -50,16 +50,12 @@ class ContactsController < ApplicationController
 	def check_social_link
 		domain_allowed = ['www.facebook.com', 'twitter.com']
 
-		if domain_allowed.include?( URI(params[:url]).host )
+		head 404 if !domain_allowed.include?( URI(params[:url]).host )
 
-			response = Net::HTTP.get_response( URI(params[:url]) )
+		response = Net::HTTP.get_response( URI(params[:url]) )
 
-			if response.is_a? Net::HTTPSuccess
-				head 200
-			else
-				head 404
-			end
-		
+		if response.is_a? Net::HTTPSuccess
+			head 200
 		else
 			head 404
 		end
