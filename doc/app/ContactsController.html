@@ -127,13 +127,13 @@
 
         <div class="method-description">
           
-          
+          <p>perform ajax response to find duplicate full name entry.</p>
           
           
 
           
           <div class="method-source-code" id="check_full_name-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 42</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_full_name</span>
         <span class="ruby-identifier">exists</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">full_name_exists?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:full_name</span>])
         <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">exists</span><span class="ruby-operator">:</span> <span class="ruby-identifier">exists</span> }.<span class="ruby-identifier">as_json</span>
@@ -161,13 +161,13 @@
 
         <div class="method-description">
           
-          
+          <p>respond to ajax request verifying the validity of social profile url.</p>
           
           
 
           
           <div class="method-source-code" id="check_social_link-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 48</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 52</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_social_link</span>
         <span class="ruby-identifier">url_valid</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">verify_url</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:url</span>])
 
@@ -247,7 +247,7 @@
 
         <div class="method-description">
           
-          <p>AJAX REQUEST ZONE</p>
+          <p>respond to ajax request for getting all registered contacts.</p>
           
           
 

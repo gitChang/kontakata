@@ -1,6 +1,6 @@
-Thu, 04 Jun 2015 21:59:09 +0800
-README.rdoc	Wed, 03 Jun 2015 01:47:44 +0800
+Thu, 04 Jun 2015 22:29:07 +0800
+README.rdoc	Thu, 04 Jun 2015 22:22:24 +0800
 app/controllers/application_controller.rb	Wed, 03 Jun 2015 01:47:44 +0800
-app/controllers/contacts_controller.rb	Thu, 04 Jun 2015 00:58:52 +0800
+app/controllers/contacts_controller.rb	Thu, 04 Jun 2015 22:26:57 +0800
 app/helpers/application_helper.rb	Wed, 03 Jun 2015 01:47:44 +0800
-app/models/contact.rb	Thu, 04 Jun 2015 18:43:23 +0800
+app/models/contact.rb	Thu, 04 Jun 2015 22:28:39 +0800

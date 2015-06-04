@@ -1,7 +1,7 @@
 == README
 
 This is a demo app on how to upload images on the Rails backend
-via AJAX request using AngularJS as a front-end tool.
+via AJAX request, and using AngularJS as a front-end tool.
 
 
 How to run this app:

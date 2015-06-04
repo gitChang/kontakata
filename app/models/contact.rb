@@ -71,6 +71,8 @@ class Contact < ActiveRecord::Base
 		end
 
 
+    # before_save callback to reformat
+    # charater casing.
 		def titleize_full_name
 			self.full_name = full_name.titleize
 		end	

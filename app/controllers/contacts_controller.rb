@@ -31,20 +31,24 @@ class ContactsController < ApplicationController
 	end
 
 
-	# AJAX REQUEST ZONE
-
+  # respond to ajax request for
+  # getting all registered contacts.
 	def get_all_contacts
 		contacts = Contact.order('created_at DESC')
 		render json: contacts.as_json
 	end
 
 
+  # perform ajax response to find
+  # duplicate full name entry.
 	def check_full_name
 		exists = Contact.full_name_exists?(params[:full_name])
 		render json: { exists: exists }.as_json
 	end
 
 
+  # respond to ajax request verifying
+  # the validity of social profile url.
 	def check_social_link
 		url_valid = Contact.verify_url(params[:url])
 
@@ -59,6 +63,7 @@ class ContactsController < ApplicationController
 	private
 
 
+    # permitted params from the payload.
 		def contact_params
 			params.permit(:file_name, :full_name, :social_profile_url, :mobile_number)
 		end
