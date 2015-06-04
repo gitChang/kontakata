@@ -12,17 +12,25 @@ function form_submit($rootScope, $http) {
 
 		elem.on('submit', function () {
 
+            // send signal indicates
+            // submittion of form, to disable
+            // fieldset tag.
 			scope.is_saving = true;
 
 			$http.post('<%= route.contacts_path %>', scope.model)
 			.success(function (res) {
-		
+
+                // clear form fields.
 				scope.reset_contact_form();
-				
+
+                // enable fieldset tag.
 				scope.is_saving = false;
 
+                // prepend newly saved contact to
+                // contact object.
 				$rootScope.contacts.unshift(res);
 
+                // hide form.
 				angular.element('.toggler').click();
 
 			})

@@ -25,6 +25,7 @@ function check_dup_fullname($http) {
 		function timer_callback() {
 			var targetPath = '<%= route.check_full_name_contacts_path("@param") %>';
 
+            // ajax request to check duplicate of full name value.
 			$http.get(targetPath.replace('@param', scope.model.full_name))
 			.success(function (res) {
 
@@ -46,6 +47,8 @@ function check_dup_fullname($http) {
 			});
 		}
 
+        // add .has-error class to this element when
+        // the regex matches the scope.error value.
 		scope.$watch('error', function(err) {
 
 			if ( /Name/i.test(err) ) { 

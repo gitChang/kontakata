@@ -8,6 +8,7 @@ angular
 
 	function ($rootScope, $scope, $http) {
 
+        // get al the contacts regitered.
 		$http.get('<%= route.all_contacts_path %>')
 		.success(function (res) {
 

@@ -23,6 +23,8 @@ function check_numericality() {
 
 		});
 
+        // check for validity of characters
+        // for mobile number field.
 		function callback() {
 
 			var number_valid = /^\d+$/.test(scope.model.mobile_number);
@@ -37,14 +39,13 @@ function check_numericality() {
 		
 		}
 
+        // add .has-error class to this element
+        // when scope.error matches the regex.
 		scope.$watch('error', function(err) {
 
-			if ( /Mobile Number/i.test(err) ) 
-				
+			if ( /Mobile Number/i.test(err) )
 				elem.parent().addClass('has-error');
-			
-			else 
-
+			else
 				elem.parent().removeClass('has-error');
 
 		
