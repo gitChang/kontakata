@@ -8,21 +8,21 @@ function notification_build() {
 
 		var icon_warn = '<i class="fa fa-hand-o-right"></i>';
 
-		// watch for error value and display it.
+		// watch for scope.error value and display if present.
 		scope.$watch('error', function (err) {
-			
+
 			if (err) {
 
 				elem.addClass('text-hey');
-			
+
 				elem.html(icon_warn + ' ' + err);
-			
+
 			} else {
-			
+
 				elem.removeClass('text-hey');
-			
+
 				elem.empty();
-			
+
 			}
 
 		});
