@@ -1,28 +1,13 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This is a demo app on how to upload images on the Rails backend
+via AJAX request using AngularJS as a front-end tool.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+How to run this app:
+
+1. Create user in PostgreSQL (see database.yml for credentials).
+2. bundle install
+3. run `rake db:create`.
+4. run `rake db:migrate`.
+5. rails s.
