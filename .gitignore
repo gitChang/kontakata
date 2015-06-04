@@ -16,4 +16,4 @@
 /public/photos
 
 # ignore intelliJ's settings
-.idea 
+/.idea
