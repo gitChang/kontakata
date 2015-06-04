@@ -3,35 +3,36 @@ require 'uri'
 
 class Contact < ActiveRecord::Base
 
+  # constants
 	NUMERIC_REGEX = /\A[0-9.]+\z/
+  ALPHA_REGEX = /\A[a-zA-Z ]+\z/
+  URL_REGEX = /\A#{URI::regexp(%w(http https))}\z/
+
 
   # callbacks
+  before_validation :verify_file_type
 	before_validation :verify_social_profile_url
 
   before_save :titleize_full_name
+
 
 	# validations
 	validates :file_name, 
 							presence: { message: 'Please select a photo.' }
 
 	validates :full_name,
-							presence: { message: 'Please type Full Name.' } 
-
-	validates :full_name, 
-							format: { with: /\A[a-zA-Z ]+\z/, message: 'Unacceptable Name.' },
-							uniqueness: { 
-								case_sensitive: false, 
-								message: 'Name already exists.', on: :create 
-							}
+							presence: { message: 'Please type Full Name.' },
+							format: { with: ALPHA_REGEX, message: 'Unacceptable Name.' },
+							uniqueness: { case_sensitive: false, message: 'Name already exists.', on: :create }
 
 	validates :social_profile_url, 
-							presence: { message: 'Please specify Social Profile URL.' }
+							presence: { message: 'Please specify Social Profile URL.' },
+              format: { with: URL_REGEX, message: 'Invalid Social Profile URL.' }
 
 	validates :mobile_number, 
-							presence: { message: 'Please Mobile Number.' }
-	
-	validates :mobile_number, 
-							format: { with: /\A[0-9.]+\z/, message: 'Unacceptable Mobile Number.' }
+							presence: { message: 'Please Mobile Number.' },
+              format: { with: NUMERIC_REGEX, message: 'Unacceptable Mobile Number.' }
+
 
 
 	# triggered via ajax request
@@ -46,9 +47,9 @@ class Contact < ActiveRecord::Base
 	def self.verify_url(url)
 		domain_allowed = %w(www.facebook.com twitter.com)
 
-    return false if !(url =~ /\A#{URI::regexp(['http', 'https'])}\z/)
+    return false unless url =~ /\A#{URI::regexp(['http', 'https'])}\z/
     return false if URI(url.to_s).path.empty?
-		return false if !domain_allowed.include?(URI(url).host)
+    return false unless domain_allowed.include?(URI(url).host)
 
 		response = Net::HTTP.get_response(URI(url))
 
@@ -62,17 +63,31 @@ class Contact < ActiveRecord::Base
 
 	private
 
+
+    # callback for file_name.
+    # check if file is an image.
+    def verify_file_type
+      if file_name
+        allowed_types = %w(jpeg jpg png gif)
+
+        unless allowed_types.include? file_name.split('.')[1]
+          errors.add(:file_name, 'File is not an image.')
+        end
+      end
+    end
+
+
 		# callback for social profile
 		# url validation.
 		def verify_social_profile_url
-			if !Contact.verify_url(social_profile_url)
-				errors.add(:social_profile_url, 'Invalid Social Profile URL.')
-			end
+      unless Contact.verify_url(social_profile_url)
+        errors.add(:social_profile_url, 'Invalid Social Profile URL.')
+      end
 		end
 
 
     # before_save callback to reformat
-    # charater casing.
+    # character casing.
 		def titleize_full_name
 			self.full_name = full_name.titleize
 		end	

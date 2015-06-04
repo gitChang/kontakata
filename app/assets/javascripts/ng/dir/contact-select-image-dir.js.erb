@@ -18,7 +18,7 @@ function select_picture() {
         // src = '' and place default value using this line.
         elem.attr('src', scope.img_placehold);
 
-        // fireup input file tag for selecting a photo.
+        // fire up input file tag for selecting a photo.
 		elem.on('click', function() { file_input.click(); });
 
         // get the base64 data of the selected photo
@@ -27,20 +27,33 @@ function select_picture() {
 		file_input.addEventListener('change', function () {
 			
 			var reader = new FileReader();
+            var imageType = /image.*/;
 
-			file = this.files[0];
+            file = this.files[0];
 
-			reader.onload = function () {
-				
-				scope.model.image_data = reader.result;
-				
-				scope.model.file_name = file.name;
-				
-				photo.setAttribute('src', reader.result);
-			
-			};
+            if (file.type.match(imageType)) {
 
-			reader.readAsDataURL(file);
+                scope.error = null;
+                scope.$apply();
+
+                reader.onload = function () {
+
+                    scope.model.image_data = reader.result;
+
+                    scope.model.file_name = file.name;
+
+                    photo.setAttribute('src', reader.result);
+
+                };
+
+                reader.readAsDataURL(file);
+
+            } else {
+
+                scope.error = 'File is not an image.';
+                scope.$apply();
+
+            }
 
 		});
 	
