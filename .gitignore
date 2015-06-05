@@ -12,8 +12,9 @@
 !/log/.keep
 /tmp
 
-# Ignore photos
-/public/photos
+# Ignore photos, except the default image
+/public/photos/*
+!/public/photos/default.jpg
 
 # ignore intelliJ's settings
 /.idea
