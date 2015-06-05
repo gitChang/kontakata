@@ -13,8 +13,6 @@ function check_social_profile_url($http, $timeout) {
 		var timer;
 
 		elem.on('input', function () {
-
-			if (!scope.model.social_profile_url) return;
 			
 			if (timer) clearTimeout(timer);
 
@@ -23,6 +21,9 @@ function check_social_profile_url($http, $timeout) {
 		});
 
 		function callback() {
+
+            if (!scope.model.social_profile_url) return;
+
 			var targetPath = '<%= route.check_social_link_contacts_path("@param") %>';
 			var param = encodeURIComponent(scope.model.social_profile_url);
 

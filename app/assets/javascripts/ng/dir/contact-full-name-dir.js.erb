@@ -13,16 +13,17 @@ function check_dup_fullname($http, $timeout) {
 		var timer;
 
 		elem.on('input', function () {
-			
-			if (!scope.model.full_name) return;
 
-			if (timer) clearTimeout(timer);
-			
-			timer = $timeout(timer_callback, 1000);
+            if (timer) clearTimeout(timer);
+
+            timer = $timeout(timer_callback, 1000);
 		
 		});
 
 		function timer_callback() {
+
+            if (!scope.model.full_name) return;
+
 			var targetPath = '<%= route.check_full_name_contacts_path("@param") %>';
 
             // ajax request to check duplicate of full name value.
@@ -39,12 +40,8 @@ function check_dup_fullname($http, $timeout) {
 				
 				}
 
-			})
-			.error(function () {
-
-				scope.error = 'Internal Server Error.';
-			
 			});
+
 		}
 
         // add .has-error class to this element when
