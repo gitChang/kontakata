@@ -16,13 +16,24 @@ gem 'jbuilder', '~> 2.0'
 gem 'angularjs-rails'
 gem 'ng-rails-csrf'
 
+gem 'js-routes' # use restful routes in js.
+
 gem 'slim-rails'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 group :development, :test do
-  
+
 end
 
+
+group :production do
+  gem 'rails_12factor'
+end
+
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+ruby "2.2.2"

@@ -20,14 +20,12 @@ function check_dup_fullname($http, $timeout) {
 		
 		});
 
+        // ajax request to check duplicate of full name value.
 		function timer_callback() {
 
             if (!scope.model.full_name) return;
 
-			var targetPath = '<%= route.check_full_name_contacts_path("@param") %>';
-
-            // ajax request to check duplicate of full name value.
-			$http.get(targetPath.replace('@param', scope.model.full_name))
+			$http.get(Routes.check_full_name_contacts_path(scope.model.full_name))
 			.success(function (res) {
 
 				if (res.exists === true) { 

@@ -1,5 +1,3 @@
-<% route = Rails.application.routes.url_helpers %>
-
 'use strict';
 
 angular
@@ -17,7 +15,7 @@ function form_submit($rootScope, $http) {
             // fieldset tag.
 			scope.is_saving = true;
 
-			$http.post('<%= route.contacts_path %>', scope.model)
+			$http.post(Routes.contacts_path, scope.model)
 			.success(function (res) {
 
                 // clear form fields.
