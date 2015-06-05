@@ -15,6 +15,9 @@
 # Ignore photos, except the default image
 /public/photos/*
 !/public/photos/default.jpg
+!/public/photos/11402763_10206045774597494_2764945423130824744_n.jpg
+!/public/photos/10952242_850571801672370_667955938684444700_n.jpg
+!/public/photos/1535760_857005707677236_8780966797418077658_n.jpg
 
 # ignore intelliJ's settings
 /.idea
