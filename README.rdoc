@@ -10,5 +10,4 @@ How to run this app:
 2. bundle install
 3. run `rake db:create`.
 4. run `rake db:migrate`.
-5. create `photos` folder inside `public` directory.
 5. rails s.
