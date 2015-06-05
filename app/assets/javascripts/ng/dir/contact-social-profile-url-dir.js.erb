@@ -6,7 +6,7 @@ angular
 	.module('kontakata')
 	.directive('contactSocialProfileUrl', check_social_profile_url);
 
-function check_social_profile_url($http) {
+function check_social_profile_url($http, $timeout) {
 
 	function link_callback(scope, elem) {
 
@@ -18,7 +18,7 @@ function check_social_profile_url($http) {
 			
 			if (timer) clearTimeout(timer);
 
-			timer = setTimeout(callback, 1000);
+			timer = $timeout(callback, 1000);
 
 		});
 

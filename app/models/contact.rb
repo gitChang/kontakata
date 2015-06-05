@@ -4,7 +4,7 @@ require 'uri'
 class Contact < ActiveRecord::Base
 
   # constants
-	NUMERIC_REGEX = /\A[0-9.]+\z/
+	NUMERIC_REGEX = /\A[0-9-]+\z/
   ALPHA_REGEX = /\A[a-zA-Z ]+\z/
   URL_REGEX = /\A#{URI::regexp(%w(http https))}\z/
 

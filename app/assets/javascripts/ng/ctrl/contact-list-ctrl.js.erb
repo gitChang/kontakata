@@ -8,7 +8,7 @@ angular
 
 	function ($rootScope, $scope, $http) {
 
-        // get al the contacts regitered.
+        // get al the contacts registered.
 		$http.get('<%= route.all_contacts_path %>')
 		.success(function (res) {
 
@@ -20,4 +20,18 @@ angular
 			alert('Failed to get all contacts.');
 		
 		});
+
+        $scope.set_icon = function (fa) {
+
+            var icons = {
+                fb: '<i class="fa fa-facebook"></i>',
+                tw: '<i class="fa fa-twitter"></i>'
+            };
+
+            if (/facebook/.test(fa))
+                return icons.fb;
+            else
+                return icons.tw;
+
+        };
 	});

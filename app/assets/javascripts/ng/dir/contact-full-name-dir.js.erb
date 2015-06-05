@@ -6,7 +6,7 @@ angular
 	.module('kontakata')
 	.directive('contactFullName', check_dup_fullname);
 
-function check_dup_fullname($http) {
+function check_dup_fullname($http, $timeout) {
 
 	function link_callback(scope, elem) {
 
@@ -18,7 +18,7 @@ function check_dup_fullname($http) {
 
 			if (timer) clearTimeout(timer);
 			
-			timer = setTimeout(timer_callback, 1000);
+			timer = $timeout(timer_callback, 1000);
 		
 		});
 

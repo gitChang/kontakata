@@ -1,78 +1,93 @@
-.ninja {
-	position: fixed;
-	z-index: 1500;
-
-	left: 50px;
-	top: -300px;
-
-	padding: 15px;
-	padding-bottom: 8px;
-
-	background-color: #000;
-	color: #fff;
-
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
-
-	-webkit-transition: top 0.5s;
-	-moz-transition: top 0.5s;
-	transition: top 0.5s;
-
-	img.select:hover, .toggler:hover {
-		cursor: pointer 
-	}
-
-	#fileInput {
-		display: none;
-	}
+body {
+  background-color: lightskyblue;
 }
 
-.shown { 
-	top: 0; 
+.ninja {
+  position: fixed;
+  z-index: 1500;
+
+  left: 50px;
+  top: -315px;
+
+  min-width: 360px;
+
+  padding: 15px;
+  padding-bottom: 8px;
+
+  background-color: #000;
+  color: #fff;
+
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+
+  -webkit-transition: top 0.5s;
+  -moz-transition: top 0.5s;
+  transition: top 0.5s;
+
+  img.select:hover, .toggler:hover {
+    cursor: pointer
+  }
+
+  #fileInput {
+    display: none;
+  }
+}
+
+.shown {
+  top: 0;
 }
 
 .notification {
-	text-align: center;
-	font-weight: bold;
-	margin-bottom: 0;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
 .text-hey {
-	color: gold;
+  color: gold;
 }
 
 .fade {
-	opacity: 0.5;
+  opacity: 0.5;
 }
 
-img.select, img.contact-picture {
-	width: 100px !important;
-	height: 100px !important;
+img.contact-picture {
+  width: 120px !important;
+  height: 100px !important;
 
-	object-fit: cover;
+  object-fit: cover;
 
-	margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-.panel.panel-default.custom {
-	background-color: #000;
-	color: #fff;
+img.select {
+  width: 100px !important;
+  height: 100px !important;
 
-	border-radius: 4px !important;
+  object-fit: cover;
+
+  margin-bottom: 0;
 }
 
-p.fullname {
-	font-size: 18px;
-	border-bottom: 1px solid #222;
-	padding-bottom: 5px;
-	margin-bottom: 15px;
+.panel.custom {
+  border-radius: 4px !important;
+  border-color: deepskyblue;
+  font-size: 120%;
 }
 
-td.ent {
-	font-weight: bold;
-	//color: #ccc;
+table {
+  margin-top: 10px;
 }
 
-td {
-	padding-bottom: 10px;
+tr.fullname {
+  font-size: 130%;
+}
+
+td.ryt {
+  padding-right: 10px;
+  color: lightskyblue;
+}
+
+.x-pad-l {
+  padding-left: 0;
 }

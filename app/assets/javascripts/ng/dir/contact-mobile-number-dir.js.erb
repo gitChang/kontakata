@@ -6,7 +6,7 @@ angular
 	.module('kontakata')
 	.directive('contactMobileNumber', check_numericality);
 
-function check_numericality() {
+function check_numericality($timeout) {
 
 	function link_callback(scope, elem) {
 
@@ -19,7 +19,7 @@ function check_numericality() {
 			
 			if (timer) clearTimeout(timer);
 			
-			timer = setTimeout(callback);
+			timer = $timeout(callback, 500);
 
 		});
 
@@ -27,7 +27,7 @@ function check_numericality() {
         // for mobile number field.
 		function callback() {
 
-			var number_valid = /^\d+$/.test(scope.model.mobile_number);
+			var number_valid = /[0-9-]$/.test(scope.model.mobile_number);
 
 			if(!number_valid) 
 
@@ -36,6 +36,7 @@ function check_numericality() {
 			else
 				
 				scope.error = null;
+
 		
 		}
 

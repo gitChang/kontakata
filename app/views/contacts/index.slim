@@ -1,25 +1,25 @@
-.container-fluid
-	
-	.col-md-3.ninja ng-controller="ContactAddCtrl"
+.container style="width: 970px"
+
+	.col-xs-3.ninja ng-controller="ContactAddCtrl"
 		form.contact-form
 
 			fieldset.contact-fields ng-disabled="is_saving"
 
 				.form-group.text-center
-					img.img-circle.select src=""
+					img.img-circle.img-thumbnail.select src=""
 					input id="fileInput" type="file"
-				
+
 				.form-group
 					input.form-control.contact-full-name ng-model="model.full_name" type="text" placeholder="Complete Name"
-				
+
 				.form-group
 					input.form-control.contact-social-profile-url ng-model="model.social_profile_url" type="text" placeholder="Facebook / Twitter Profile"
 
 				.form-group
 					input.form-control.contact-mobile-number ng-model="model.mobile_number" type="text" placeholder="0928-Mobile-Number"
-				
+
 				.form-group
-					button.btn.btn-success.btn-block type="submit"
+					button.btn.btn-info.btn-block type="submit"
 
 			.form-group.notification
 				p
@@ -28,24 +28,30 @@
 				i.toggler.fa.fa-chevron-up.fa-rotate-180.fa-2x
 
 	.row style="margin-top:20px;"
-		.col-md-5.col-md-offset-4 ng-controller="ContactListCtrl"
+
+		.col-xs-8.col-xs-offset-4 ng-controller="ContactListCtrl"
 
 			.panel.panel-default.custom.animated.fadeInDown ng-repeat="contact in contacts"
 				.panel-body
-					
+
 					.row
 
-						.col-md-4.text-center
-							img.img-circle.contact-picture ng-src="/photos/{{contact.file_name}}"
-						
-						.col-md-8
-							p.fullname ng-bind="contact.full_name"
-							
-							table
-								tr 
-									td.ent Social Profile &nbsp;
-									td 
-										a href="{{contact.social_profile_url}}" target="_blank" ng-bind="contact.social_profile_url | shorti"
-								tr 
-									td.ent Mobile No. &nbsp;
-									td ng-bind="contact.mobile_number"
+						.col-xs-3
+							img.img-rounded.contact-picture ng-src="/photos/{{contact.file_name}}"
+
+						.col-xs-8.x-pad-l
+                            table
+                                tr.fullname
+                                    td.ryt
+                                        i.fa.fa-user
+                                    td ng-bind="contact.full_name"
+
+
+                                tr
+                                    td.ryt ng-bind-html="set_icon(contact.social_profile_url) | escHtml"
+                                    td.ent
+                                        a href="{{contact.social_profile_url}}" target="_blank" ng-bind="contact.social_profile_url | shorti"
+                                tr
+                                    td.ryt
+                                        i.fa.fa-mobile-phone.fa-lg
+                                    td.ent ng-bind="contact.mobile_number"
