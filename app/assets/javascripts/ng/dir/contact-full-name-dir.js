@@ -16,7 +16,7 @@ function check_dup_fullname($http, $timeout) {
 
         if (timer) clearTimeout(timer);
 
-        timer = $timeout(timer_callback, 1000);
+        timer = $timeout(timer_callback, 2000);
 
       }
 		

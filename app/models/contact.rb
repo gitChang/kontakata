@@ -4,7 +4,7 @@ require 'uri'
 class Contact < ActiveRecord::Base
 
   # constants
-  #...
+  # ...
 
 	NUMERIC_REGEX = /\A[0-9-]+\z/
   ALPHA_REGEX 	= /\A[a-zA-Z .]+\z/
@@ -12,7 +12,7 @@ class Contact < ActiveRecord::Base
 
  
   # callbacks
-  #...
+  # ...
 
   after_validation :verify_file_type
 	after_validation :verify_social_profile_url
@@ -20,13 +20,13 @@ class Contact < ActiveRecord::Base
 
 
 	# validations
-	#...
+	# ...
 
 	validates :file_name, 
 							presence: { message: 'Please select a Photo.' }
 
 	validates :full_name,
-							presence: { message: 'Please type Full Name.' },
+							presence: { message: 'Please type your Full Name.' },
 							format: { with: ALPHA_REGEX, message: 'Unacceptable Name.' },
 							uniqueness: { case_sensitive: false, message: 'Name already exists.', on: :create }
 
@@ -35,7 +35,7 @@ class Contact < ActiveRecord::Base
               format: { with: URL_REGEX, message: 'Invalid Social Profile URL.' }
 
 	validates :mobile_number, 
-							presence: { message: 'Please Mobile Number.' },
+							presence: { message: 'Please type your Mobile Number.' },
               format: { with: NUMERIC_REGEX, message: 'Unacceptable Mobile Number.' }
 
 

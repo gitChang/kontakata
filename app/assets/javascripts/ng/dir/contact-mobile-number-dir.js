@@ -13,11 +13,13 @@ function check_numericality($timeout) {
 
 		elem.on('input', function () {
 
-			if (!scope.model.mobile_number) return;
+			if (scope.model.mobile_number) {
 			
-			if (timer) clearTimeout(timer);
-			
-			timer = $timeout(callback, 500);
+				if (timer) clearTimeout(timer);
+				
+				timer = $timeout(callback, 2000);
+
+			}
 
 		});
 

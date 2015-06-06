@@ -38,8 +38,6 @@ function form_submit($rootScope, $http) {
 
 				scope.is_saving = false;
 
-				console.log('err: ', scope.error);
-
 			});
 
 		});

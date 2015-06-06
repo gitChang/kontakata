@@ -16,7 +16,7 @@ function check_social_profile_url($http, $timeout) {
 
         if (timer) clearTimeout(timer);
 
-        timer = $timeout(callback, 1000);
+        timer = $timeout(callback, 2000);
       }
 
 		});

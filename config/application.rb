@@ -40,5 +40,11 @@ module Kontakata
       gen.helper          false
       gen.stylesheets     false
     end
+
+    # Show errors logs during env.test
+    if Rails.env == 'test'
+      require 'diagnostic'
+      config.middleware.use(MyApp::DiagnosticMiddleware)
+    end
   end
 end
