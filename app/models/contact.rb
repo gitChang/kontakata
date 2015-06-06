@@ -4,21 +4,26 @@ require 'uri'
 class Contact < ActiveRecord::Base
 
   # constants
+  #...
+
 	NUMERIC_REGEX = /\A[0-9-]+\z/
-  ALPHA_REGEX = /\A[a-zA-Z ]+\z/
-  URL_REGEX = /\A#{URI::regexp(%w(http https))}\z/
+  ALPHA_REGEX 	= /\A[a-zA-Z .]+\z/
+  URL_REGEX 		= /\A#{URI::regexp(%w(http https))}\z/
 
-
+ 
   # callbacks
-  before_validation :verify_file_type
-	before_validation :verify_social_profile_url
+  #...
 
-  before_save :titleize_full_name
+  after_validation :verify_file_type
+	after_validation :verify_social_profile_url
+  before_save 		 :titleize_full_name
 
 
 	# validations
+	#...
+
 	validates :file_name, 
-							presence: { message: 'Please select a photo.' }
+							presence: { message: 'Please select a Photo.' }
 
 	validates :full_name,
 							presence: { message: 'Please type Full Name.' },
@@ -87,7 +92,7 @@ class Contact < ActiveRecord::Base
 
 
     # before_save callback to reformat
-    # character casing.
+    # character casing of full name field.
 		def titleize_full_name
 			self.full_name = full_name.titleize
 		end	
