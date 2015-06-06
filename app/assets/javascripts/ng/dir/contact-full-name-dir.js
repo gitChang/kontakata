@@ -1,5 +1,3 @@
-<% route = Rails.application.routes.url_helpers %>
-
 'use strict';
 
 angular
@@ -14,16 +12,18 @@ function check_dup_fullname($http, $timeout) {
 
 		elem.on('input', function () {
 
-            if (timer) clearTimeout(timer);
+      if (scope.model.full_name) {
 
-            timer = $timeout(timer_callback, 1000);
+        if (timer) clearTimeout(timer);
+
+        timer = $timeout(timer_callback, 1000);
+
+      }
 		
 		});
 
-        // ajax request to check duplicate of full name value.
+    // ajax request to check duplicate of full name value.
 		function timer_callback() {
-
-            if (!scope.model.full_name) return;
 
 			$http.get(Routes.check_full_name_contacts_path(scope.model.full_name))
 			.success(function (res) {
@@ -42,8 +42,8 @@ function check_dup_fullname($http, $timeout) {
 
 		}
 
-        // add .has-error class to this element when
-        // the regex matches the scope.error value.
+    // add .has-error class to this element when
+    // the regex matches the scope.error value.
 		scope.$watch('error', function(err) {
 
 			if ( /Name/i.test(err) ) { 

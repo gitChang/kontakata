@@ -1,5 +1,3 @@
-<% route = Rails.application.routes.url_helpers %>
-
 'use strict';
 
 angular
@@ -23,25 +21,21 @@ function check_numericality($timeout) {
 
 		});
 
-        // check for validity of characters
-        // for mobile number field.
+    // check for validity of characters
+    // for mobile number field.
 		function callback() {
 
 			var number_valid = /[0-9-]$/.test(scope.model.mobile_number);
 
-			if(!number_valid) 
-
+			if(!number_valid)
 				scope.error = 'Unacceptable Mobile Number.';
-			
 			else
-				
 				scope.error = null;
 
-		
 		}
 
-        // add .has-error class to this element
-        // when scope.error matches the regex.
+    // add .has-error class to this element
+    // when scope.error matches the regex.
 		scope.$watch('error', function(err) {
 
 			if ( /Mobile Number/i.test(err) )
@@ -49,7 +43,6 @@ function check_numericality($timeout) {
 			else
 				elem.parent().removeClass('has-error');
 
-		
 		});
 
 	}

@@ -12,12 +12,12 @@ function check_social_profile_url($http, $timeout) {
 
 		elem.on('input', function () {
 
-            if (scope.model.social_profile_url) {
+      if (scope.model.social_profile_url) {
 
-                if (timer) clearTimeout(timer);
+        if (timer) clearTimeout(timer);
 
-                timer = $timeout(callback, 1000);
-            }
+        timer = $timeout(callback, 1000);
+      }
 
 		});
 
@@ -25,8 +25,8 @@ function check_social_profile_url($http, $timeout) {
 
 			var param = encodeURIComponent(scope.model.social_profile_url);
 
-            // perform ajax request to validate entered url
-            // social profile url.
+      // perform ajax request to validate entered url
+      // social profile url.
 			$http.get(Routes.check_social_link_contacts_path(param))
 			.success(function () {
 			
@@ -40,16 +40,16 @@ function check_social_profile_url($http, $timeout) {
 			});
 		}
 
-        // add .has-error class to this element
-        // when the regex matches the scope.error.
+    // add .has-error class to this element
+    // when the regex matches the scope.error.
 		scope.$watch('error', function(err) {
 
 			if ( /Social/i.test(err) )
 				elem.parent().addClass('has-error');
 			else
 				elem.parent().removeClass('has-error');
-			
-		
+
+
 		});
 	}
 

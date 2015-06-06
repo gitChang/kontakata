@@ -8,9 +8,9 @@ function change_text() {
 
 	function link_callback(scope, elem) {
 
-        // replace the text of the submit
-        // button to html value which indicates
-        // saving.
+    // replace the text of the submit
+    // button to html value which indicates
+    // saving.
 		scope.$watch('is_saving', function(val) {
 
 			if (val) {

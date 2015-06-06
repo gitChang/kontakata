@@ -1,5 +1,3 @@
-<% route = Rails.application.routes.url_helpers %>
-
 'use strict';
 
 angular
@@ -12,32 +10,32 @@ function form_submit($rootScope, $http) {
 
 		elem.on('submit', function () {
 
-            // send signal indicates
-            // submission of form, to disable
-            // fieldset tag.
+      // send signal indicates
+      // submission of form, to disable
+      // fieldset tag.
 			scope.is_saving = true;
 
 			$http.post(Routes.contacts_path(), scope.model)
 			.success(function (res) {
 
-                // clear form fields.
+        // clear form fields.
 				scope.reset_contact_form();
 
-                // enable fieldset tag.
+        // enable fieldset tag.
 				scope.is_saving = false;
 
-                // prepend newly saved contact to
-                // contact object.
+        // prepend newly saved contact to
+        // contact object.
 				$rootScope.contacts.unshift(res);
 
-                // hide form.
+        // hide form.
 				angular.element('.toggler').click();
 
 			})
 			.error(function (res) {
 
 				scope.error = res.error;
-				
+
 				scope.is_saving = false;
 
 				console.log('err: ', scope.error);

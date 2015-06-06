@@ -8,8 +8,8 @@ function change_state() {
 
 	function link_callback(scope, elem) {
 
-        // disable fieldset tag when true by adding
-        // .fade class.
+    // disable fieldset tag when true by adding
+    // .fade class.
 		scope.$watch('is_saving', function (val) {
 
 			if (val)

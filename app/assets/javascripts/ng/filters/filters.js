@@ -9,7 +9,9 @@ angular
 // profile url.
 function shorti() {
   return function(str) {
-    return str.replace('https://', '').replace('www.','').replace('.com','');
+    return str.replace('https://', '')
+              .replace('www.','')
+              .replace('.com','');
   };  
 }
 
