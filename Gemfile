@@ -23,10 +23,11 @@ gem 'slim-rails'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 
-group :development, :test do
+group :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 

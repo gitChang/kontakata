@@ -44,10 +44,15 @@ function check_social_profile_url($http, $timeout) {
     // when the regex matches the scope.error.
 		scope.$watch('error', function(err) {
 
-			if ( /Social/i.test(err) )
+			if ( /Social/i.test(err) ) {
+			
 				elem.parent().addClass('has-error');
-			else
+			
+			} else {
+
 				elem.parent().removeClass('has-error');
+			
+			}
 
 
 		});

@@ -1,0 +1,43 @@
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:53:in `check_social_link'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:53:in `check_social_link'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/models/contact.rb:88:in `verify_social_profile_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:18:in `create'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:53:in `check_social_link'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:53:in `check_social_link'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:53:in `check_social_link'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/models/contact.rb:88:in `verify_social_profile_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:18:in `create'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'
+TypeError
+exception object expected
+/Users/Charlie/Sites/kontakata/app/models/contact.rb:59:in `verify_url'
+    /Users/Charlie/Sites/kontakata/app/models/contact.rb:88:in `verify_social_profile_url'
+    /Users/Charlie/Sites/kontakata/app/controllers/contacts_controller.rb:18:in `create'
+    /Users/Charlie/Sites/kontakata/lib/diagnostic.rb:10:in `call'

@@ -29,6 +29,11 @@ RSpec.feature "Contacts", type: :feature do
   end
 
 
+  def fill_mobile_number(number='0926-540-5954')
+    find('input.contact-mobile-number').set number
+  end
+
+
   def submit
   	click_button('Add')
   end
@@ -95,12 +100,85 @@ RSpec.feature "Contacts", type: :feature do
   end
 
 
-  scenario 'Full Name value has numeric a character.', js: true do
+  scenario 'Full Name has invalid character.', js: true do
     sleep 1
     fill_fullname('3ric')
     sleep 2
 
     expect(page).to have_content('Unacceptable Name.')
+  end
+
+
+  scenario 'Mobile Number has invalid character.', js: true do
+    sleep 1
+    fill_mobile_number('o928')
+    sleep 2
+
+    expect(page).to have_content('Unacceptable Mobile Number.')
+  end
+
+
+  scenario 'posting an invalid Full Name.', js: true do
+    attach_image
+    fill_fullname 'ch@rlie'
+    fill_social_profile_url
+    fill_mobile_number
+
+    submit
+
+    sleep 2
+
+    expect(page).to have_content('Unacceptable Name.')
+  end
+
+
+  scenario 'posting an invalid Social Profile URL.', js: true do
+    attach_image
+    fill_fullname
+    fill_social_profile_url 'http://foo.bar'
+    fill_mobile_number
+
+    submit
+
+    sleep 2
+
+    expect(page).to have_content('Invalid Social Profile URL.')
+  end
+
+
+  scenario 'posting an invalid Mobile Number.', js: true do
+    attach_image
+    fill_fullname
+    fill_social_profile_url
+    fill_mobile_number '092e'
+
+    submit
+
+    sleep 2
+
+    expect(page).to have_content('Unacceptable Mobile Number.')
+  end
+
+
+  scenario 'posting valid contact data.', js: true do
+    attach_image
+    fill_fullname 'Charlie G. P.'
+
+    sleep 2
+
+    fill_social_profile_url
+
+    sleep 2
+
+    fill_mobile_number
+
+    sleep 2
+
+    submit
+
+    sleep 4
+
+    expect(page).to have_content('Charlie G. P.')
   end
 
 end

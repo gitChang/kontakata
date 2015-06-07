@@ -27,13 +27,18 @@ function check_numericality($timeout) {
     // for mobile number field.
 		function callback() {
 
-			var number_valid = /[0-9-]$/.test(scope.model.mobile_number);
+			var number_valid = /^[0-9-]+$/.test(scope.model.mobile_number);
 
-			if(!number_valid)
-				scope.error = 'Unacceptable Mobile Number.';
-			else
+			if(number_valid) {
+				
 				scope.error = null;
+			
+			} else {
 
+				scope.error = 'Unacceptable Mobile Number.';
+			
+			}
+				
 		}
 
     // add .has-error class to this element
