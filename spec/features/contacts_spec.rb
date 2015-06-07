@@ -57,7 +57,7 @@ RSpec.feature "Contacts", type: :feature do
   end
 
 
-  scenario 'posting with Photo only data, should have text \'Please type your Full Name.\'', js: true do
+  scenario 'posting with Photo only data.', js: true do
   	attach_image
   	submit
   	
@@ -67,8 +67,7 @@ RSpec.feature "Contacts", type: :feature do
   end
 
 
-  scenario 'posting with Photo, Full Name only data, 
-  					should have text \'Please specify Social Profile URL.\'', js: true do
+  scenario 'posting with Photo, Full Name only data.', js: true do
   	attach_image
   	fill_fullname
 
@@ -80,8 +79,7 @@ RSpec.feature "Contacts", type: :feature do
   end
 
 
-  scenario 'posting with Photo, Full Name, Social Profile URL only data, 
-  					should have text \'Please type your Mobile Number.\'', js: true do
+  scenario 'posting with Photo, Full Name, Social Profile URL only data.', js: true do
   	attach_image
   	fill_fullname
 
@@ -94,6 +92,15 @@ RSpec.feature "Contacts", type: :feature do
     sleep 3
 
   	expect(page).to have_content('Please type your Mobile Number.')
+  end
+
+
+  scenario 'Full Name value has numeric a character.', js: true do
+    sleep 1
+    fill_fullname('3ric')
+    sleep 2
+
+    expect(page).to have_content('Unacceptable Name.')
   end
 
 end
