@@ -3,40 +3,49 @@ require 'uri'
 
 class Contact < ActiveRecord::Base
 
-  # constants
-  # ...
-
-	NUMERIC_REGEX = /\A[0-9-]+\z/
-  ALPHA_REGEX 	= /\A[a-zA-Z .]+\z/
-  URL_REGEX 		= /\A#{URI::regexp(%w(http https))}\z/
-
- 
-  # callbacks
-  # ...
-
   after_validation :verify_file_type
 	after_validation :verify_social_profile_url
   before_save 		 :titleize_full_name
 
 
-	# validations
-	# ...
+  RE_FULLNAME  = /\A[a-zA-Z .]+\z/
+  RE_SOCIALURL = /\A#{URI::regexp(%w(http https))}\z/
+  RE_MOBILENUM = /\A[0-9-]+\z/
 
 	validates :file_name, 
-							presence: { message: 'Please select a Photo.' }
+		presence: { 
+			message: 'Please select a Photo.' 
+		}
 
-	validates :full_name,
-							presence: { message: 'Please type your Full Name.' },
-							format: { with: ALPHA_REGEX, message: 'Unacceptable Name.' },
-							uniqueness: { case_sensitive: false, message: 'Name already exists.', on: :create }
+	validates :full_name, 
+		presence: { 
+			message: 'Please type your Full Name.' 
+		},
+		format: { 
+			with: RE_FULLNAME, 
+			message: 'Unacceptable Name.' 
+		},
+		uniqueness: { 
+			case_sensitive: false, 
+			message: 'Name already exists.', 
+			on: :create 
+		}
 
 	validates :social_profile_url, 
-							presence: { message: 'Please specify Social Profile URL.' },
-              format: { with: URL_REGEX, message: 'Invalid Social Profile URL.' }
+		presence: { 
+			message: 'Please specify Social Profile URL.' 
+		},
+    format: { 
+    	with: RE_SOCIALURL, message: 'Invalid Social Profile URL.' 
+    }
 
 	validates :mobile_number, 
-							presence: { message: 'Please type your Mobile Number.' },
-              format: { with: NUMERIC_REGEX, message: 'Unacceptable Mobile Number.' }
+		presence: { 
+			message: 'Please type your Mobile Number.' 
+		},
+    format: { 
+    	with: RE_MOBILENUM, message: 'Unacceptable Mobile Number.' 
+    }
 
 
 
@@ -50,11 +59,11 @@ class Contact < ActiveRecord::Base
 	# checks the existence of
 	# the social profile url.
 	def self.verify_url(url)
-		domain_allowed = %w(www.facebook.com twitter.com)
-
-    return false unless url =~ /\A#{URI::regexp(['http', 'https'])}\z/
+		allowed_domain = %w(www.facebook.com twitter.com)
+    
+    return false unless url =~ RE_SOCIALURL
     return false if URI(url.to_s).path.empty?
-    return false unless domain_allowed.include?(URI(url).host)
+    return false unless allowed_domain.include?(URI(url).host)
 
 		response = Net::HTTP.get_response(URI(url))
 

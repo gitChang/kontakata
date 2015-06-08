@@ -5,13 +5,21 @@ class ContactsController < ApplicationController
 	layout 'application'
 
 	
-	# Landing page. Collects all 
-	# contacts registered.
+	# GET /
+	# render index template.
+	# render json contacts.
 	def index
+		contacts = Contact.order('created_at DESC')
+
+		respond_to do |format|
+			format.html 
+			format.json { render json: contacts.as_json }
+		end
 	end
 
 
-	# Add new contact person
+	# POST /contacts.json
+	# render json contact.
 	def create
 		contact = Contact.new(contact_params)
 
@@ -31,14 +39,7 @@ class ContactsController < ApplicationController
 	end
 
 
-  # respond to ajax request for
-  # getting all registered contacts.
-	def get_all_contacts
-		contacts = Contact.order('created_at DESC')
-		render json: contacts.as_json
-	end
-
-
+  # GET /check_full_name/:name.json
   # perform ajax response to find
   # duplicate full name entry.
 	def check_full_name
@@ -47,6 +48,7 @@ class ContactsController < ApplicationController
 	end
 
 
+	# GET /check_social_link/:url.json
   # respond to ajax request verifying
   # the validity of social profile url.
 	def check_social_link
@@ -63,7 +65,7 @@ class ContactsController < ApplicationController
 	private
 
 
-    # permitted params from the payload.
+    # restrict payload.
 		def contact_params
 			params.permit(:file_name, :full_name, :social_profile_url, :mobile_number)
 		end

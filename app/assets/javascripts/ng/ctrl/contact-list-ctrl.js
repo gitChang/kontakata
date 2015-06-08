@@ -7,7 +7,7 @@ angular
 	function ($rootScope, $scope, $http) {
 
     // get al the contacts registered.
-		$http.get(Routes.all_contacts_path())
+		$http.get(Routes.root_path())
 		.success(function (res) {
 
 			$rootScope.contacts = res;
