@@ -1,23 +1,23 @@
 'use strict';
 
 angular
-	.module('kontakata')
-	.controller('ContactListCtrl', 
+  .module('kontakata')
+  .controller('ContactListCtrl', 
 
-	function ($rootScope, $scope, $http) {
+  function ($rootScope, $scope, $http) {
 
     // get al the contacts registered.
-		$http.get(Routes.root_path())
-		.success(function (res) {
+    $http.get(Routes.root_path())
+    .success(function (res) {
 
-			$rootScope.contacts = res;
-		
-		})
-		.error(function () {
+      $rootScope.contacts = res;
+    
+    })
+    .error(function () {
 
-			alert('Failed to get all contacts.');
-		
-		});
+      alert('Failed to get all contacts.');
+    
+    });
 
     $scope.set_icon = function (fa) {
 
@@ -32,4 +32,4 @@ angular
         return icons.tw;
 
     };
-	});
+  });

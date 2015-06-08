@@ -22,5 +22,5 @@ angular
 // force to display text
 // as html.
 function esc_html($sce) { 
-	return $sce.trustAsHtml; 
+  return $sce.trustAsHtml; 
 }
