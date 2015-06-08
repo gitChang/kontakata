@@ -76,8 +76,6 @@
     
     <li ><a href="#method-i-create">#create</a>
     
-    <li ><a href="#method-i-get_all_contacts">#get_all_contacts</a>
-    
     <li ><a href="#method-i-index">#index</a>
     
   </ul>
@@ -127,16 +125,16 @@
 
         <div class="method-description">
           
-          <p>perform ajax response to find duplicate full name entry.</p>
+          <p>GET /check_full_name/juan.json</p>
           
           
 
           
           <div class="method-source-code" id="check_full_name-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 44</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 43</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_full_name</span>
-        <span class="ruby-identifier">exists</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">full_name_exists?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:full_name</span>])
-        <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">exists</span><span class="ruby-operator">:</span> <span class="ruby-identifier">exists</span> }.<span class="ruby-identifier">as_json</span>
+  <span class="ruby-identifier">exists</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">full_name_exists?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:full_name</span>])
+  <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">exists</span><span class="ruby-operator">:</span> <span class="ruby-identifier">exists</span> }.<span class="ruby-identifier">as_json</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -161,21 +159,21 @@
 
         <div class="method-description">
           
-          <p>respond to ajax request verifying the validity of social profile url.</p>
+          <p>GET /check_social_link/:url.json</p>
           
           
 
           
           <div class="method-source-code" id="check_social_link-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 52</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_social_link</span>
-        <span class="ruby-identifier">url_valid</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">verify_url</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:url</span>])
+  <span class="ruby-identifier">url_valid</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">verify_url</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:url</span>])
 
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">url_valid</span>
-                <span class="ruby-identifier">head</span> <span class="ruby-value">200</span>
-        <span class="ruby-keyword">else</span>
-                <span class="ruby-identifier">head</span> <span class="ruby-value">404</span>
-        <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">url_valid</span>
+    <span class="ruby-identifier">head</span> <span class="ruby-value">200</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">head</span> <span class="ruby-value">404</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -200,63 +198,29 @@
 
         <div class="method-description">
           
-          <p>Add new contact person</p>
+          <p>POST /contacts.json render json contact.</p>
           
           
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-        <span class="ruby-identifier">contact</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">contact_params</span>)
+  <span class="ruby-identifier">contact</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">contact_params</span>)
 
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">save</span>
-                <span class="ruby-identifier">decoded_64</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:image_data</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;,&#39;</span>)[<span class="ruby-value">1</span>] )
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-identifier">decoded_64</span> = <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>( <span class="ruby-identifier">params</span>[<span class="ruby-value">:image_data</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;,&#39;</span>)[<span class="ruby-value">1</span>] )
 
-                <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;public/photos/#{params[:file_name].to_s}&quot;</span>, <span class="ruby-string">&#39;wb&#39;</span>)
-          <span class="ruby-identifier">file</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">decoded_64</span>)
+    <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;public/photos/#{params[:file_name].to_s}&quot;</span>, <span class="ruby-string">&#39;wb&#39;</span>)
+    <span class="ruby-identifier">file</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">decoded_64</span>)
 
-                <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">as_json</span>
-        <span class="ruby-keyword">else</span>  
-                <span class="ruby-identifier">first_error</span> = <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value">1</span>]
-                <span class="ruby-identifier">puts</span> <span class="ruby-identifier">first_error</span>
-                
-                <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-identifier">first_error</span> }.<span class="ruby-identifier">as_json</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">400</span>
-        <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">as_json</span>
+  <span class="ruby-keyword">else</span>  
+    <span class="ruby-identifier">first_error</span> = <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">first</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">first_error</span>
     
-      <div id="method-i-get_all_contacts" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_all_contacts</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>respond to ajax request for getting all registered contacts.</p>
-          
-          
-
-          
-          <div class="method-source-code" id="get_all_contacts-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_all_contacts</span>
-        <span class="ruby-identifier">contacts</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;created_at DESC&#39;</span>)
-        <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">contacts</span>.<span class="ruby-identifier">as_json</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> { <span class="ruby-identifier">error</span><span class="ruby-operator">:</span> <span class="ruby-identifier">first_error</span> }.<span class="ruby-identifier">as_json</span>, <span class="ruby-identifier">status</span><span class="ruby-operator">:</span> <span class="ruby-value">400</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -281,14 +245,20 @@
 
         <div class="method-description">
           
-          <p>Landing page. Collects all  contacts registered.</p>
+          <p>GET / render index template. render json contacts.</p>
           
           
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/controllers/contacts_controller.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-identifier">contacts</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">&#39;created_at DESC&#39;</span>)
+
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> 
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-identifier">json</span><span class="ruby-operator">:</span> <span class="ruby-identifier">contacts</span>.<span class="ruby-identifier">as_json</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

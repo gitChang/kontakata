@@ -104,17 +104,17 @@
       </header>
       <dl>
       
-        <dt id="ALPHA_REGEX">ALPHA_REGEX
+        <dt id="RE_FULLNAME">RE_FULLNAME
         
         <dd>
         
       
-        <dt id="NUMERIC_REGEX">NUMERIC_REGEX
+        <dt id="RE_MOBILENUM">RE_MOBILENUM
         
-        <dd><p>constants</p>
+        <dd>
         
       
-        <dt id="URL_REGEX">URL_REGEX
+        <dt id="RE_SOCIALURL">RE_SOCIALURL
         
         <dd>
         
@@ -145,15 +145,15 @@
 
         <div class="method-description">
           
-          <p>triggered via ajax request of full name duplicates.</p>
+          <p>triggered on ajax request for full name duplicates.</p>
           
           
 
           
           <div class="method-source-code" id="full_name_exists-3F-source">
-            <pre><span class="ruby-comment"># File app/models/contact.rb, line 40</span>
+            <pre><span class="ruby-comment"># File app/models/contact.rb, line 54</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">full_name_exists?</span>(<span class="ruby-identifier">full_name</span>)
-        <span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;lower(full_name) = ?&#39;</span>, <span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">downcase</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+  <span class="ruby-identifier">where</span>(<span class="ruby-string">&#39;lower(full_name) = ?&#39;</span>, <span class="ruby-identifier">full_name</span>.<span class="ruby-identifier">downcase</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -184,22 +184,22 @@
 
           
           <div class="method-source-code" id="verify_url-source">
-            <pre><span class="ruby-comment"># File app/models/contact.rb, line 47</span>
-    <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">verify_url</span>(<span class="ruby-identifier">url</span>)
-            <span class="ruby-identifier">domain_allowed</span> = <span class="ruby-node">%w(www.facebook.com twitter.com)</span>
+            <pre><span class="ruby-comment"># File app/models/contact.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">verify_url</span>(<span class="ruby-identifier">url</span>)
+  <span class="ruby-identifier">allowed_domain</span> = <span class="ruby-node">%w(www.facebook.com twitter.com)</span>
+  
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">url</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">RE_SOCIALURL</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">to_s</span>).<span class="ruby-identifier">path</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">allowed_domain</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">host</span>)
 
-<span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">url</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/\A#{URI::regexp([&#39;http&#39;, &#39;https&#39;])}\z/</span>
-<span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">to_s</span>).<span class="ruby-identifier">path</span>.<span class="ruby-identifier">empty?</span>
-<span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">domain_allowed</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>).<span class="ruby-identifier">host</span>)
+  <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>))
 
-            <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>(<span class="ruby-identifier">url</span>))
-
-            <span class="ruby-keyword">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPSuccess</span>
-                    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-            <span class="ruby-keyword">else</span>
-                    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-            <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span></pre>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPSuccess</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
