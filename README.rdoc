@@ -6,8 +6,8 @@ via AJAX request, and using AngularJS as a front-end tool.
 
 How to run this app:
 
-1. create user in PostgreSQL (see database.yml for credentials).
-2. bundle install
-3. run `rake db:create`.
-4. run `rake db:migrate`.
-5. rails s.
+1. bundle install
+2. run `rake db:migrate`.
+3. rails s.
+
+Just run `rspec` to view all tests.
