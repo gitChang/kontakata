@@ -20,6 +20,7 @@ test:
   <<: *default
   database: db/test.sqlite3
 
+# Use 'pg' in production.
 production:
   <<: *default
-  database: db/production.sqlite3
+  url: <%= ENV['DATABASE_URL'] %>
