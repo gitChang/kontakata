@@ -4,10 +4,13 @@ This is a demo app on how to upload images on the Rails backend
 via AJAX request, and using AngularJS as a front-end tool.
 
 
-How to run this app:
-
+=== Development
 1. bundle install
 2. run `rake db:migrate`.
 3. rails s.
 
+=== BDD Testing
 Just run `rspec` to view all tests.
+
+=== License Apache License 2.0
+can be found [here](../blob/master/LICENSE)
