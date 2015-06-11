@@ -21,3 +21,6 @@
 
 # ignore intelliJ's settings
 /.idea
+
+# Ignore .DS_Store
+.DS_Store
