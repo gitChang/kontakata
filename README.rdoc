@@ -13,4 +13,4 @@ via AJAX request, and using AngularJS as a front-end tool.
 Just run `rspec` to view all tests.
 
 === License Apache License 2.0
-can be found [here](../blob/master/LICENSE)
+can be found [here](https://github.com/gitChang/kontakata/blob/master/LICENSE)
